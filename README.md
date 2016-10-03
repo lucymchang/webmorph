@@ -1,5 +1,5 @@
 # webmorph
-Source code for the web application, webmorph, and its online generator
+Source code for the web application, *webmorph*, and its online generator
 
 
 ## Example application
