@@ -790,7 +790,7 @@ function addMag(e){
 		clipTo: function (ctx) {
 			ctx.save();
 			ctx.setTransform(1,0,0,1,0,0);
-			ctx.arc(pointer.x,pointer.y, 50, 0, Math.PI * 2);
+			ctx.arc(pointer.x,pointer.y, 70, 0, Math.PI * 2);
 			ctx.restore();
 			}
 		});
