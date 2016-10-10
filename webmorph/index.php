@@ -30,8 +30,8 @@ if(!file_exists('remaining.txt')){
 
 <script>
 
-/* store file list as javascript object*/
-var bg = <?php echo json_encode(imageList()); ?>
+// store file list as javascript object
+// var bg = <?php echo json_encode(imageList()); ?>
 
 // Load in the framework for workflow
 var map = mapBuild = [];

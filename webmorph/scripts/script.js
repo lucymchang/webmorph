@@ -101,9 +101,10 @@ var mag;
 var magSpotNew;
 var magSpotOld;
 
+// runs everytime the background is loaded
 function loadBackground(){
-	rimg = Math.floor((Math.random() * bg.length));
-	bgimg = bg[0]; // bg[rimg] for random image (only use if not calling and modifying remaining.txt, if modifying remaining.txt, randomize the array of images before writing remaining.txt
+/*	rimg = Math.floor((Math.random() * bg.length));
+	bgimg = bg[0]; // bg[rimg] for random image (only use if not calling and modifying remaining.txt, if modifying remaining.txt, randomize the array of images before writing remaining.txt*/
 	var center = canvas.getCenter();
 	var request = $.ajax({
 		url: "background.php",
@@ -715,6 +716,7 @@ function submitForm(){
 	var request = $.ajax({
 		url: "done.php",
 		type: "GET",
+		data: {image:bgimg},
 		dataType: "html"
 	});
 	request.done(function(a){
@@ -775,29 +777,29 @@ function imageExists(url, callback) {
 function addMag(e){
 	var center = canvas.getCenter();
 	fabric.Image.fromURL('images/' + bgimg,function(img){
-	scale = Math.min((canvas.height - 10) / img.getHeight(), (canvas.width - 10) / img.getWidth());
-	var offsetX = (pointer.x-center.left)*mag;
-	var offsetY = (pointer.y-center.top)*mag;
-	img.set({
-		scaleX:scale*mag,
-		scaleY:scale*mag,
-		top: center.top-offsetY+(pointer.y-center.top),
-		left: center.left-offsetX+(pointer.x-center.left),
-		originX: 'center',
-		originY: 'center',
-		lockMovementX: true,
-		lockMovementY: true,
-		clipTo: function (ctx) {
-			ctx.save();
-			ctx.setTransform(1,0,0,1,0,0);
-			ctx.arc(pointer.x,pointer.y, 70, 0, Math.PI * 2);
-			ctx.restore();
-			}
-		});
-	magSpotNew = img;
-	canvas.add(magSpotNew);
-	canvas.remove(magSpotOld); // makes the movement smoother
-	canvas.sendToBack(magSpotNew);
-	magSpotOld = magSpotNew;
-});
+		scale = Math.min((canvas.height - 10) / img.getHeight(), (canvas.width - 10) / img.getWidth());
+		var offsetX = (pointer.x-center.left)*mag;
+		var offsetY = (pointer.y-center.top)*mag;
+		img.set({
+			scaleX:scale*mag,
+			scaleY:scale*mag,
+			top: center.top-offsetY+(pointer.y-center.top),
+			left: center.left-offsetX+(pointer.x-center.left),
+			originX: 'center',
+			originY: 'center',
+			lockMovementX: true,
+			lockMovementY: true,
+			clipTo: function (ctx) {
+				ctx.save();
+				ctx.setTransform(1,0,0,1,0,0);
+				ctx.arc(pointer.x,pointer.y, 70, 0, Math.PI * 2);
+				ctx.restore();
+				}
+			});
+		magSpotNew = img;
+		canvas.add(magSpotNew);
+		canvas.remove(magSpotOld); // makes the movement smoother
+		canvas.sendToBack(magSpotNew);
+		magSpotOld = magSpotNew;
+	});
 }

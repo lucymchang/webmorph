@@ -1,7 +1,11 @@
 <?php
 $remaining = unserialize(file_get_contents("remaining.txt"));
 
-array_shift($remaining);
+$bgimg = $_GET['image'];
+
+$remaining = array_values(array_diff($remaining,array($bgimg)));
+
+#array_shift($remaining);
 
 $dir = 'images/';
 $images = array();
