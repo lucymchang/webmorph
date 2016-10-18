@@ -144,6 +144,7 @@ h1 a{
 	z-index:5;
 	width:100%;
 	height:200%;
+	display:none; /* hide until the sign in stuff works */
 }
 
 #summary{
@@ -157,6 +158,7 @@ h1 a{
 	z-index:10;
 	background-color:#FFF;
 	border:5px solid #000;
+	display:none; /* hide until the sign in stuff works */
 }
 
 #content{
@@ -308,6 +310,10 @@ button:disabled {
 
 .stepDesc{
 	overflow-y:auto;	
+}
+
+.count{
+	margin:5px 15px;
 }
 
 #form{

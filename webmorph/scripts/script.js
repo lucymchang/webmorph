@@ -311,16 +311,12 @@ canvas.on('mouse:up',function(o){
 				distances[trigger]++;
 				pointSet[trigger][distances[trigger]] = point;
 				canvas.add(pointSet[trigger][distances[trigger]]);
-				textSet[trigger] = new fabric.Text(mapBuild[trigger].title + ": " + distances[trigger].toString(), { 
-					fill: activeColor,
-					fontSize: 20,
-					left: 10,
-					fontWeight: 'bold',
-					lockMovementX: true,
-					lockMovementY: true
-				});
-				restackCounts();
-				canvas.add(textSet[trigger]);
+				
+				if($("#count" + trigger).length == 0) {
+					$(".counts").append('<div class="count" id="count' + trigger + '"></div>')
+				}
+				$("#count" + trigger).html(mapBuild[trigger].title + ": " + distances[trigger])
+				
 				staticx[trigger].push(x3);
 				staticy[trigger].push(y3);
 				next.disabled = false;
@@ -469,7 +465,6 @@ function prevstep(){
 						$.each(pointSet[trigger+1], function(index){
 							pointSet[trigger+1][index].set('fill',inactiveColor);
 						});
-						textSet[trigger+1].set('fill',inactiveColor);
 						canvas.remove(pointSet[trigger+1][pointSet[trigger+1].length-1]);
 						break;
 				}
@@ -515,7 +510,6 @@ function prevstep(){
 					$.each(pointSet[trigger], function(index){
 						pointSet[trigger][index].set('fill',activeColor);
 					});
-					textSet[trigger].set('fill',activeColor);
 					break;
 			}
 		}
@@ -552,8 +546,7 @@ function nextstep(){
 					pointSet[trigger] = [];
 					staticx[trigger] = [];
 					staticy[trigger] = [];
-				}
-					restackCounts();	
+				}	
 			}
 			if(isSet[trigger]){
 				switch(mapBuild[trigger].type){
@@ -567,7 +560,6 @@ function nextstep(){
 						$.each(pointSet[trigger], function(index){
 							pointSet[trigger][index].set('fill',activeColor);
 						});
-						textSet[trigger].set('fill',activeColor);
 						break;
 				}
 			}
@@ -583,7 +575,6 @@ function nextstep(){
 					pointSet[trigger-1].set('fill',inactiveColor);
 					break;
 				case "count":
-					textSet[trigger-1].set('fill',inactiveColor);
 					$.each(pointSet[trigger-1], function(index){
 						pointSet[trigger-1][index].set('fill',inactiveColor);
 					});
@@ -695,7 +686,9 @@ function skipstep(){
 				$.each(pointSet[trigger], function(index){
 					canvas.remove(pointSet[trigger][index]);
 				});
-				canvas.remove(textSet[trigger]);
+				if($("#count" + trigger).length != 0){
+					$("#count" + trigger).remove()
+				}
 				distances[trigger] = 0;
 				pointSet[trigger] = [];
 				break;
@@ -754,7 +747,7 @@ function removeChildren(trigger){
 		}
 	}
 }
-
+/* function to arrange counts by line in canvas
 function restackCounts(){
 	countItems = 0;
 	$.each(mapBuild,function(index){
@@ -764,7 +757,7 @@ function restackCounts(){
 		}
 	});
 }
-
+*/
 /*
 function imageExists(url, callback) {
   var img = new Image();

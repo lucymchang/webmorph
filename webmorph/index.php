@@ -139,7 +139,8 @@ function unnest(map,build){
 
 <canvas id="canvas" width="600" height="500"></canvas>
 
-
+<div class="counts">
+</div>
 </div>
 
 <footer>
